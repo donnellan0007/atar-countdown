@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Countdown Timers</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bebas+Neue">
+    <style>
+        body {
+            font-family: 'Bebas Neue', sans-serif;
+            background-color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+        }
+
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .countdown-container {
+            background-color: #222;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+        }
+
+        .countdown-title {
+            font-size: 24px;
+            text-transform: uppercase;
+            color: #777; /* Slightly lighter grey color */
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .countdown {
+            font-size: 48px;
+        }
+
+        /* Create the gleam effect with adjusted opacity and duration */
+        .countdown-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.3), transparent, rgba(255, 255, 255, 0.3));
+            background-size: 200% 100%;
+            animation: gleam 5s linear infinite; /* Adjust the duration here */
+            border-radius: 10px; /* Match the container's border-radius */
+        }
+
+        /* Define the gleam animation */
+        @keyframes gleam {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* Apply the glow effect to the 6th countdown container */
+        .countdown-container#countdown-six {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown-grid">
+        <div class="countdown-container" id="countdown-six">
+            <div class="countdown-title">
+                Days Until ATAR Day
+            </div>
+            <div class="countdown" id="countdown-1">
+                    Countdown ATAR
+			</div>
+        </div>
+        <div class="countdown-container" id="countdown-six">
+            <div class="countdown-title">
+                Days Until First Round Offers
+            </div>
+            <div class="countdown" id="countdown-2">
+                    Countdown Offers
+			</div>
+        </div>
+    </div>
+
+    <!-- JavaScript for the countdown timers -->
+    <script>
+        // Set the target dates and times for all countdowns
+        const targetDates = [
+            new Date("December 11, 2023 07:00:00").getTime(),
+            new Date("December 21, 2023 14:00:00").getTime(),
+        ];
+
+        // Function to update a countdown
+        function updateCountdown(id) {
+            const countdown = document.querySelector(`#countdown-${id}`);
+
+            const currentDate = new Date().getTime();
+            const timeLeft = targetDates[id - 1] - currentDate;
+
+            if (timeLeft <= 0) {
+                countdown.innerHTML = "ATARS Released";
+            } else {
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                countdown.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            }
+        }
+
+        // Update all countdowns every second
+        for (let i = 1; i <= 2; i++) {
+            updateCountdown(i);
+            setInterval(() => {
+                updateCountdown(i);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
