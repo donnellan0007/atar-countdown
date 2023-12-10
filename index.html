@@ -112,6 +112,7 @@
 
             if (timeLeft <= 0) {
                 countdown.innerHTML = "ATARS Released";
+		document.title = "ATARs released";
             } else {
                 const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -119,6 +120,7 @@
                 const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
                 countdown.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+		document.title = `${days}d ${hours}h ${minutes}m ${seconds}s`;
             }
         }
 
